@@ -1,0 +1,54 @@
+# Output directory
+target/
+
+# Eclipse configuration
+.settings/
+.classpath
+.project
+.externalToolBuilders/
+
+# IntelliJ configuration
+.idea
+*.iml
+
+# Operating System cruft
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# JRebel configuration
+*rebel.xml
+
+# Hippo repository storage
+storage/
+
+# Hippo bootstrap webfiles
+
+# Maven cruft
+*.versionsBackup
+
+# Node Modules & Bower Components
+node_modules/
+bower_components/
+npm-debug.log
+
+# Adobe Dreamweaver Contribute Design Notes
+_notes/
+*.mno
+
+# Misc
+tmp/
+
+# frontend parsley
+frontend/src/js/parsley/parsley.min.js
+
+
+# webfiles
+/bootstrap/webfiles/src/main/resources/common/js/
+/bootstrap/webfiles/src/main/resources/powerkohlerenginesenus/
+/bootstrap/webfiles/src/main/resources/rev-manifest.json
+/bootstrap/webfiles/src/main/resources/powerkohlerindustrialsenus/
