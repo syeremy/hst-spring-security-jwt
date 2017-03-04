@@ -18,8 +18,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
@@ -72,8 +73,6 @@ public class AuthResource  {
                                                        @Context UriInfo uriInfo,
                                                        @RequestBody JwtAuthenticationRequest authenticationRequest,
                                                         Device device) throws AuthenticationException {
-        dependencyInit(servletRequest);
-
         // Perform the security
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -97,9 +96,6 @@ public class AuthResource  {
     @Path("refresh")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest servletRequest) {
 
-        dependencyInit(servletRequest);
-
-
         String token = servletRequest.getHeader(tokenHeader);
         String username = jwtTokenUtil.getUsernameFromToken(token);
         JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
@@ -112,29 +108,10 @@ public class AuthResource  {
         }
     }
 
-    //TODO: SEE WHY autowire is not working!!!!
-    private void dependencyInit( HttpServletRequest servletRequest)
-    {
-        //TODO -- Find out why Spring is not injecting the dependencies!!!
-        if(authenticationManager == null) {
-            //authenticationManager = new ProviderManager(Collections.singletonList(new HippoAuthenticationProvider()));
-            authenticationManager = WebApplicationContextUtils.getRequiredWebApplicationContext(servletRequest.getServletContext()).getBean(AuthenticationManager.class);
-        }
 
-        if(userDetailsService == null) {
-            //userDetailsService = new JwtUserDetailsServiceImpl();
-            userDetailsService = WebApplicationContextUtils.getRequiredWebApplicationContext(servletRequest.getServletContext()).getBean(UserDetailsService.class);
-        }
-
-        if(jwtTokenUtil == null) {
-            //jwtTokenUtil = new JwtTokenUtil();
-            jwtTokenUtil = WebApplicationContextUtils.getRequiredWebApplicationContext(servletRequest.getServletContext()).getBean(JwtTokenUtil.class);
-        }
-        //TODO --/
-    }
-
+    @PostConstruct
     protected void init()
     {
-
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 }

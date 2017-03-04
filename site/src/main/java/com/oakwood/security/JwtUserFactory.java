@@ -1,7 +1,7 @@
 package com.oakwood.security;
 
-import com.oakwood.security.model.Authority;
-import com.oakwood.security.model.User;
+import com.oakwood.security.model.repo.Authority;
+import com.oakwood.security.model.repo.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

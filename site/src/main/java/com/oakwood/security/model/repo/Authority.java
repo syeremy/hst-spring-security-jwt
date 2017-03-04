@@ -1,4 +1,4 @@
-package com.oakwood.security.model;
+package com.oakwood.security.model.repo;
 
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.oakwood.security.repository;
 
-import com.oakwood.security.model.Authority;
-import com.oakwood.security.model.AuthorityName;
-import com.oakwood.security.model.User;
+import com.oakwood.security.model.repo.Authority;
+import com.oakwood.security.model.repo.AuthorityName;
+import com.oakwood.security.model.repo.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;

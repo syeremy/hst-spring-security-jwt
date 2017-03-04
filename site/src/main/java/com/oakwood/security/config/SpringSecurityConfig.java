@@ -1,7 +1,7 @@
 package com.oakwood.security.config;
 
 import com.oakwood.security.JwtAuthenticationEntryPoint;
-import com.oakwood.security.JwtAuthenticationTokenFilter;
+import com.oakwood.security.filter.JwtAuthenticationTokenFilter;
 import org.onehippo.forge.security.support.springsecurity.authentication.HippoAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

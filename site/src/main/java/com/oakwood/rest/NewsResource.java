@@ -1,6 +1,6 @@
-package com.oakwood.security.rest;
+package com.oakwood.rest;
 
-import com.oakwood.security.rest.model.NewsModel;
+import com.oakwood.rest.model.NewsModel;
 import org.hippoecm.hst.container.RequestContextProvider;
 import org.hippoecm.hst.content.beans.query.HstQuery;
 import org.hippoecm.hst.content.beans.query.HstQueryResult;

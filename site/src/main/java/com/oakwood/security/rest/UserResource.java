@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -37,32 +38,19 @@ public class UserResource {
     public JwtUser getAuthenticatedUser(@Context HttpServletRequest servletRequest,
                                         @Context HttpServletResponse servletResponse) {
 
-        dependencyInit(servletRequest);
-
         String token = servletRequest.getHeader(tokenHeader);
         String username = jwtTokenUtil.getUsernameFromToken(token);
         JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
         return user;
     }
 
-    //TODO: SEE WHY autowire is not working!!!!
-    private void dependencyInit( HttpServletRequest servletRequest)
-    {
-        //TODO -- Find out why Spring is not injecting the dependencies!!!
-        if(userDetailsService == null) {
-            //userDetailsService = new JwtUserDetailsServiceImpl();
-            userDetailsService = WebApplicationContextUtils.getRequiredWebApplicationContext(servletRequest.getServletContext()).getBean(UserDetailsService.class);
-        }
 
-        if(jwtTokenUtil == null) {
-            //jwtTokenUtil = new JwtTokenUtil();
-            jwtTokenUtil = WebApplicationContextUtils.getRequiredWebApplicationContext(servletRequest.getServletContext()).getBean(JwtTokenUtil.class);
-        }
-        //TODO --/
-    }
+
+
+    @PostConstruct
     protected void init()
     {
-
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
 }

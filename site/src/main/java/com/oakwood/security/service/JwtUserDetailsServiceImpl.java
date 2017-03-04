@@ -1,7 +1,7 @@
 package com.oakwood.security.service;
 
 import com.oakwood.security.JwtUserFactory;
-import com.oakwood.security.model.User;
+import com.oakwood.security.model.repo.User;
 import com.oakwood.security.repository.UserRepository;
 import com.oakwood.security.repository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;

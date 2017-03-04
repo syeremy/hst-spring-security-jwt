@@ -1,7 +1,7 @@
 package com.oakwood.security.repository;
 
 
-import com.oakwood.security.model.User;
+import com.oakwood.security.model.repo.User;
 
 /**
  * Created by stephan on 20.03.16.

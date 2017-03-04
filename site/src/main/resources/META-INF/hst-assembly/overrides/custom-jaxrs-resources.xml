@@ -40,7 +40,7 @@
 				<bean class="org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider">
 					<constructor-arg>
 						<bean
-								class="com.oakwood.security.rest.NewsResource"
+								class="com.oakwood.rest.NewsResource"
 								init-method="init" />
 					</constructor-arg>
 				</bean>

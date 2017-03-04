@@ -1,4 +1,4 @@
-package com.oakwood.security.rest.model;
+package com.oakwood.rest.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
