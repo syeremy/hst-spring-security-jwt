@@ -3,6 +3,7 @@ package com.oakwood.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -26,11 +27,11 @@ public class JwtTokenUtil implements Serializable {
     private static final String AUDIENCE_MOBILE = "mobile";
     private static final String AUDIENCE_TABLET = "tablet";
 
-    //@Value("${jwt.secret:mySecret}")
-    private String secret = "mySecret";
+    @Value("${jwt.secret:mySecret}")
+    private String secret;
 
-   // @Value("${jwt.expiration:604800l}")
-    private Long expiration = 604800l;
+   @Value("${jwt.expiration:604800l}")
+    private Long expiration;
 
     public String getUsernameFromToken(String token) {
         String username;
@@ -158,13 +159,23 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        JwtUser user = (JwtUser) userDetails;
-        final String username = getUsernameFromToken(token);
-        final Date created = getCreatedDateFromToken(token);
-        //final Date expiration = getExpirationDateFromToken(token);
-        return (
-                username.equals(user.getUsername())
-                        && !isTokenExpired(token)
-                        && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
+        try
+        {
+            JwtUser user = (JwtUser) userDetails;
+            final String username = getUsernameFromToken(token);
+            final Date created = getCreatedDateFromToken(token);
+            final Date expiration = getExpirationDateFromToken(token);
+
+            return (
+                    username.equals(user.getUsername())
+                            && !isTokenExpired(token)
+                           && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
+        }
+        catch(Exception ex)
+        {
+            System.out.print(ex);
+        }
+
+        return  false;
     }
 }

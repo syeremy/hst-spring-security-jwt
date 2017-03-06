@@ -12,6 +12,10 @@ import java.util.List;
  **/
 public class Authority {
 
+    public Authority(String name)
+    {
+        this.name = AuthorityName.valueOf(name);
+    }
     private Long id;
 
     private AuthorityName name;

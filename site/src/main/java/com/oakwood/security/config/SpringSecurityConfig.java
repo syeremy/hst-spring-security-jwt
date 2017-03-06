@@ -2,6 +2,7 @@ package com.oakwood.security.config;
 
 import com.oakwood.security.JwtAuthenticationEntryPoint;
 import com.oakwood.security.filter.JwtAuthenticationTokenFilter;
+import com.oakwood.security.service.JwtUserDetailsServiceImpl;
 import org.onehippo.forge.security.support.springsecurity.authentication.HippoAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +49,7 @@ public class SpringSecurityConfig  extends WebSecurityConfigurerAdapter {
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 .authenticationProvider(new HippoAuthenticationProvider())
-                .userDetailsService(this.userDetailsService)
+                .userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -108,6 +109,11 @@ public class SpringSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return new ProviderManager(Collections.singletonList(new HippoAuthenticationProvider()));
+    }
+
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        return new JwtUserDetailsServiceImpl();
     }
 
 

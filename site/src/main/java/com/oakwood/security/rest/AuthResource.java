@@ -40,7 +40,7 @@ import javax.ws.rs.core.UriInfo;
 public class AuthResource  {
 
     @Value("${jwt.header}")
-    private String tokenHeader = "Authorization";
+    private String tokenHeader;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -66,8 +66,6 @@ public class AuthResource  {
 
     @POST
     @Path("auth")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> createAuthenticationToken(@Context HttpServletRequest servletRequest,
                                                        @Context HttpServletResponse servletResponse,
                                                        @Context UriInfo uriInfo,

@@ -86,6 +86,7 @@ $(function () {
             success: function (data, textStatus, jqXHR) {
                 var $userInfoBody = $userInfo.find("#userInfoBody");
 
+                $userInfoBody.append($("<div>").text("Name: " + data.firstname + " " + data.lastname));
                 $userInfoBody.append($("<div>").text("Username: " + data.username));
                 $userInfoBody.append($("<div>").text("Email: " + data.email));
 
